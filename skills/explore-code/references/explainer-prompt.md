@@ -2,9 +2,13 @@
 
 Use this template to build the prompt for the explainer subagent. Fill in the placeholders.
 
+For **simple questions** (direct explore + explain, no prior exploration): omit the Explorer Findings section and instruct the agent to do its own exploration first using Glob, Grep, and Read.
+
+For **complex questions** (synthesizing parallel explorer findings): fill in the Explorer Findings section with the structured output from each explorer.
+
 ---
 
-You are writing an architectural explanation for a senior engineer. Multiple explorer agents have traced different slices of the codebase in parallel and gathered findings — your job is to synthesize their findings into one coherent, well-structured explanation.
+You are writing an architectural explanation for a senior engineer. {EITHER: Multiple explorer agents have traced different slices of the codebase in parallel and gathered findings — your job is to synthesize their findings into one coherent, well-structured explanation. / OR: You will explore the codebase yourself using Glob, Grep, and Read, then write a clear explanation.}
 
 ## Original Question
 
@@ -12,22 +16,26 @@ You are writing an architectural explanation for a senior engineer. Multiple exp
 
 ## Explorer Findings
 
-{EXPLORER_FINDINGS_ALL}
+{EXPLORER_FINDINGS_ALL — omit this section for simple/direct-explain mode}
 
 ## Instructions
 
+{IF SYNTHESIZING}
 The explorers each investigated a different angle of the same subsystem. Their findings will overlap in places and may occasionally contradict. Reconcile them: merge overlapping descriptions, resolve contradictions by checking the code yourself, and weave the separate slices into a unified picture.
+{ELSE}
+Explore the codebase yourself. Start broad (Glob for files, Grep for key symbols), then follow the call chain by reading the actual code. Don't guess from file names.
+{END IF}
 
 Write an explanation that a senior engineer unfamiliar with this area could read and walk away with a solid mental model. They should understand the architecture well enough to start working in it confidently.
 
-You have read-only access to the codebase if you need to check anything, clarify a detail, or fill a gap. Use Read, Grep, and Glob as needed — but the explorers already did the heavy lifting, so you shouldn't need to re-explore from scratch.
+You have read-only access to the codebase. Use Read, Grep, and Glob as needed.
 
 ## Output Format
 
-Use this structure, but adapt it to what makes sense for the question. Not every section is needed for every question.
+Use this structure, but adapt it to what makes sense for the question. Not every section is needed every time.
 
 ### Overview
-1-2 paragraphs. What is this thing, what does it do, why does it exist. Someone should be able to read just this and decide whether they need to keep reading.
+1-2 paragraphs. What is this thing, what does it do, why does it exist. A reader should be able to decide from this alone whether to keep reading.
 
 ### Key Concepts
 The important types, services, or abstractions needed to follow the rest. Brief definitions, not exhaustive.
@@ -37,7 +45,7 @@ The core of the explanation. Walk through the flow: what triggers it, what happe
 
 Use prose, not pseudocode. Reference specific files and functions so the reader knows where to look, but don't dump large code blocks unless a snippet is genuinely essential to understanding a point.
 
-When the flow involves multiple components talking to each other, or data transforming through stages, include a diagram to make it visual. Use mermaid (```mermaid) for structured flows (sequence diagrams, flowcharts, component graphs) or ASCII art for simpler relationships where mermaid would be overkill. Use your judgment — a diagram should clarify, not decorate. If the flow is simple enough that prose covers it, skip the diagram.
+When the flow involves multiple components talking to each other, or data transforming through stages, include a diagram to make it visual. Use mermaid (```mermaid) for structured flows (sequence diagrams, flowcharts, component graphs) or ASCII art for simpler relationships. A diagram should clarify, not decorate — if prose covers it, skip the diagram.
 
 ### Where Things Live
 A brief file/directory map. Just the ones someone would need to find to start working here.
@@ -52,4 +60,4 @@ Non-obvious things, surprising behavior, historical context, sharp edges. Skip t
 - When something is complex, explain why it's complex — don't just describe the complexity
 - When something is simple, don't pad it out
 - If there's a helpful analogy, use it; if there isn't, don't force one
-- If the explorer flagged open questions or gaps, acknowledge them honestly rather than papering over them
+- Acknowledge gaps and open questions honestly rather than papering over them
