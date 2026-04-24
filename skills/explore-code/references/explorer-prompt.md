@@ -1,6 +1,6 @@
 # Explorer Prompt Template
 
-Use this template to build the prompt for the explorer subagent. Fill in the placeholders.
+Use this template to build the prompt for an explorer subagent. Fill in the placeholders.
 
 ---
 
