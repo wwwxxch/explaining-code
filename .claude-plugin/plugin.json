@@ -1,0 +1,23 @@
+{
+  "name": "explore-and-review",
+  "version": "0.2.0",
+  "description": "Two skills for reading codebases: 'explore-code' traces data flows and explains how subsystems work; 'arch-review' critiques architectural design by spawning parallel critic agents.",
+  "author": {
+    "name": "wwwxxch"
+  },
+  "contributors": [
+    {
+      "name": "Lauren Tan",
+      "url": "https://github.com/poteto/how"
+    }
+  ],
+  "keywords": [
+    "explanation",
+    "architecture",
+    "code-review",
+    "onboarding",
+    "exploration",
+    "critique"
+  ],
+  "license": "MIT"
+}
