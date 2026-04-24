@@ -7,6 +7,13 @@ description: Explore the codebase to understand how something works — trace da
 
 Explore the codebase to answer "how does X work?" questions or diagnostic questions like "where does this data come from?" and "why is this happening?". Produce clear explanations at the level of a senior engineer onboarding onto a subsystem — enough to build a working mental model, not so much that it reads like annotated source code.
 
+## Before You Begin — Platform Tools
+
+This SKILL.md references Claude Code tool names (`Agent`, `Glob`, `Grep`, `Read`). Before spawning any subagent or using file-search tools, open `references/platform-tools.md` and substitute the equivalents for the platform you are running on.
+
+Key platform-specific guidance:
+- **Gemini CLI**: the built-in `codebase_investigator` subagent is purpose-built for the explorer role. Prefer `@codebase_investigator` over `@generalist` in Step 2a. Use `@generalist` for the synthesizer in Step 3 and the single-pass path in Step 2b.
+
 ## Step 1 — Understand the Question and Assess Complexity
 
 Parse what the user is asking about. They might say:
@@ -85,7 +92,3 @@ The explanation follows this structure, but adapt it to the question. Not every 
 **Where Things Live** — A brief map of the relevant files/directories. Just what a reader needs to start working in this area.
 
 **Gotchas** — Non-obvious behavior, historical context, sharp edges. Skip if nothing to call out.
-
-## Platform Notes
-
-This SKILL.md uses Claude Code tool names (`Agent`, `Glob`, `Grep`, `Read`). See `references/platform-tools.md` for equivalents on other platforms.

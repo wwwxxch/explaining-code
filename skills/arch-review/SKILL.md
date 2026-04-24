@@ -7,6 +7,10 @@ description: Review the architecture of a subsystem — identify structural prob
 
 Review a codebase subsystem for architectural problems — not line-level bugs or style. Structural concerns: abstraction boundaries, data modeling, coupling, how the design will evolve.
 
+## Before You Begin — Platform Tools
+
+This SKILL.md references Claude Code tool names (`Agent`, `Skill`). Before spawning any subagent or invoking the sibling `explore-code` skill, open `references/platform-tools.md` and substitute the equivalents for the platform you are running on.
+
 ## Step 1 — Ensure Architectural Context Exists
 
 Before critiquing, an architectural explanation of the subsystem is required. Critics without context produce shallow or wrong findings.
@@ -49,7 +53,3 @@ Present in this order:
 
 1. The architectural explanation (from Step 1) — stands on its own so a reader who just wants to understand the system doesn't have to read the critique
 2. The critique verdict, organized by the four categories above
-
-## Platform Notes
-
-This SKILL.md uses Claude Code tool names (`Agent`). See `references/platform-tools.md` for equivalents on other platforms.

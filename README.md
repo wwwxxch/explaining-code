@@ -1,6 +1,6 @@
 # Code Exploration & Architecture Review Skills
 
-Two skills for reading and evaluating codebases. Originally forked from a Cursor plugin (`how`) and split into focused, composable skills for Claude Code, Cursor, and (planned) Gemini CLI.
+Two skills for reading and evaluating codebases. Originally forked from a Cursor plugin (`how`) and split into focused, composable skills for Claude Code, Cursor, and Gemini CLI.
 
 ## Skills
 
@@ -57,7 +57,13 @@ Cursor auto-loads skills from repos containing a `.cursor-plugin/plugin.json`. F
 
 ### Gemini CLI
 
-Planned — see `references/platform-tools.md` in each skill for the tool mapping that will be needed once Gemini CLI support is added.
+Install as an extension from the repo:
+
+```bash
+gemini extensions install wwwxxch/explore-and-review
+```
+
+Skills auto-load from the extension's `skills/` directory on next session start. Gemini CLI reads the same `SKILL.md` format as Claude Code; tool-name differences (e.g. `@generalist` instead of `Agent`, `read_file` instead of `Read`) are handled via each skill's `references/platform-tools.md`. The `explore-code` skill automatically prefers Gemini's built-in `codebase_investigator` subagent for the explorer role.
 
 ## Structure
 
@@ -67,6 +73,7 @@ Planned — see `references/platform-tools.md` in each skill for the tool mappin
 │   └── plugin.json              # Claude Code manifest
 ├── .cursor-plugin/
 │   └── plugin.json              # Cursor manifest
+├── gemini-extension.json        # Gemini CLI manifest
 └── skills/                      # Shared across all platforms
     ├── explore-code/
     │   ├── SKILL.md
@@ -88,13 +95,13 @@ Each `SKILL.md` holds the routing logic. The `references/` folder holds prompt t
 
 | Platform    | Status       | Notes                                                     |
 | ----------- | ------------ | --------------------------------------------------------- |
-| Claude Code | ✅ supported | Tool names used directly in SKILL.md                      |
-| Cursor      | ✅ supported | Original format — verified with the upstream `how` plugin |
-| Gemini CLI  | ⏳ planned   | `platform-tools.md` has TODO placeholders                 |
+| Claude Code | ✅ supported | Tool names used directly in SKILL.md. Supports parallel subagents. |
+| Cursor      | ✅ supported | Use **Composer (Agent mode)**. Does not support parallel subagents; follow steps sequentially and use `@Codebase` for context. |
+| Gemini CLI  | ✅ supported | Uses built-in `generalist` / `codebase_investigator` subagents; handles tool mapping via `platform-tools.md`. |
 
 ## Credits
 
-Forked from [poteto/how](https://github.com/poteto/how) by Lauren Tan (MIT License). Modified to split the original single skill into two focused skills (`explore-code` and `arch-review`), remove hardcoded model names, and add cross-platform plugin manifests (Claude Code, Cursor, with Gemini CLI planned).
+Forked from [poteto/how](https://github.com/poteto/how) by Lauren Tan (MIT License). Modified to split the original single skill into two focused skills (`explore-code` and `arch-review`), remove hardcoded model names, and add cross-platform plugin manifests for Claude Code, Cursor, and Gemini CLI.
 
 ## License
 
