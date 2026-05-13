@@ -4,6 +4,8 @@ Two skills for reading and evaluating codebases. Originally forked from a Cursor
 
 ## Skills
 
+Two skills - `explore-code` & `arch-review`
+
 ### `explore-code` — understand how something works
 
 Trace data flows, follow call chains, diagnose the origin of a bug, or build a mental model of a subsystem. Produces a structured explanation with Overview, Key Concepts, How It Works, Where Things Live, and Gotchas.
@@ -37,16 +39,16 @@ Review a subsystem for structural problems — abstraction boundaries, data mode
 **Option A — install as a plugin (recommended for sharing)**
 
 ```bash
-/plugin marketplace add wwwxxch/explore-and-review
-/plugin install explore-and-review
+/plugin marketplace add wwwxxch/explaining-code
+/plugin install explaining-code
 ```
 
 **Option B — symlink into user skills (recommended for local development)**
 
 ```bash
-git clone <repo-url> ~/src/explore-and-review
-ln -s ~/src/explore-and-review/skills/explore-code ~/.claude/skills/explore-code
-ln -s ~/src/explore-and-review/skills/arch-review ~/.claude/skills/arch-review
+git clone <repo-url> ~/src/explaining-code
+ln -s ~/src/explaining-code/skills/explore-code ~/.claude/skills/explore-code
+ln -s ~/src/explaining-code/skills/arch-review ~/.claude/skills/arch-review
 ```
 
 Edits to the repo take effect immediately — no reinstall needed.
@@ -60,7 +62,7 @@ Cursor auto-loads skills from repos containing a `.cursor-plugin/plugin.json`. F
 Install as an extension from the repo:
 
 ```bash
-gemini extensions install wwwxxch/explore-and-review
+gemini extensions install wwwxxch/explaining-code
 ```
 
 Skills auto-load from the extension's `skills/` directory on next session start. Gemini CLI reads the same `SKILL.md` format as Claude Code; tool-name differences (e.g. `@generalist` instead of `Agent`, `read_file` instead of `Read`) are handled via each skill's `references/platform-tools.md`. The `explore-code` skill automatically prefers Gemini's built-in `codebase_investigator` subagent for the explorer role.
@@ -93,11 +95,11 @@ Each `SKILL.md` holds the routing logic. The `references/` folder holds prompt t
 
 ## Platform Support
 
-| Platform    | Status       | Notes                                                     |
-| ----------- | ------------ | --------------------------------------------------------- |
-| Claude Code | ✅ supported | Tool names used directly in SKILL.md. Supports parallel subagents. |
+| Platform    | Status       | Notes                                                                                                                          |
+| ----------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Claude Code | ✅ supported | Tool names used directly in SKILL.md. Supports parallel subagents.                                                             |
 | Cursor      | ✅ supported | Use **Composer (Agent mode)**. Does not support parallel subagents; follow steps sequentially and use `@Codebase` for context. |
-| Gemini CLI  | ✅ supported | Uses built-in `generalist` / `codebase_investigator` subagents; handles tool mapping via `platform-tools.md`. |
+| Gemini CLI  | ✅ supported | Uses built-in `generalist` / `codebase_investigator` subagents; handles tool mapping via `platform-tools.md`.                  |
 
 ## Credits
 

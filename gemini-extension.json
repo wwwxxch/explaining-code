@@ -1,5 +1,5 @@
 {
-  "name": "explore-and-review",
+  "name": "explaining-code",
   "version": "0.2.0",
   "description": "Two skills for reading codebases: 'explore-code' traces data flows and explains how subsystems work; 'arch-review' critiques architectural design by spawning parallel critic agents."
 }
