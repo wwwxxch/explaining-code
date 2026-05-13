@@ -40,8 +40,10 @@ Review a subsystem for structural problems — abstraction boundaries, data mode
 
 ```bash
 /plugin marketplace add wwwxxch/explaining-code
-/plugin install explaining-code
+/plugin install explaining-code@explaining-code
 ```
+
+The first argument is the GitHub repo (which hosts the marketplace catalog at `.claude-plugin/marketplace.json`). The `@explaining-code` suffix on `install` is the marketplace name as declared in the catalog — both happen to be the same string here.
 
 **Option B — symlink into user skills (recommended for local development)**
 
@@ -72,11 +74,16 @@ Skills auto-load from the extension's `skills/` directory on next session start.
 ```text
 .
 ├── .claude-plugin/
-│   └── plugin.json              # Claude Code manifest
+│   └── marketplace.json         # Claude Code marketplace catalog
 ├── .cursor-plugin/
 │   └── plugin.json              # Cursor manifest
 ├── gemini-extension.json        # Gemini CLI manifest
-└── skills/                      # Shared across all platforms
+├── plugins/
+│   └── explaining-code/         # Claude Code plugin (referenced from marketplace.json)
+│       ├── .claude-plugin/
+│       │   └── plugin.json      # Claude Code plugin manifest
+│       └── skills -> ../../skills  # symlink back to canonical skills/
+└── skills/                      # Canonical skills directory — read by Cursor and Gemini directly
     ├── explore-code/
     │   ├── SKILL.md
     │   └── references/
@@ -92,6 +99,8 @@ Skills auto-load from the extension's `skills/` directory on next session start.
 ```
 
 Each `SKILL.md` holds the routing logic. The `references/` folder holds prompt templates for subagents, plus a `platform-tools.md` map for cross-platform tool-name equivalents.
+
+The `plugins/explaining-code/skills` entry is a symlink to the top-level `skills/` directory so the canonical skill content is maintained in one place while still satisfying Claude Code's expectation that a plugin's files live under the plugin directory referenced by `marketplace.json`.
 
 ## Platform Support
 

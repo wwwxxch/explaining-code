@@ -1,0 +1,17 @@
+{
+  "name": "explaining-code",
+  "owner": {
+    "name": "wwwxxch"
+  },
+  "metadata": {
+    "description": "Marketplace for the explaining-code plugin — code exploration and architecture review skills.",
+    "version": "0.2.0"
+  },
+  "plugins": [
+    {
+      "name": "explaining-code",
+      "source": "./plugins/explaining-code",
+      "description": "Two skills for reading codebases: 'explore-code' traces data flows and explains how subsystems work; 'arch-review' critiques architectural design by spawning parallel critic agents."
+    }
+  ]
+}
